@@ -10,7 +10,7 @@ from tornado.netutil import Resolver, OverrideResolver
 from tornado import stack_context
 from tornado.util import GzipDecompressor
 from tornado.concurrent import TracebackFuture
-from tornado.simple_httpclient import _DEFAULT_CA_CERTS
+from tornado.simple_httpclient import _default_ca_certs
 import time
 
 import base64
@@ -322,7 +322,7 @@ class KeepAliveHTTPConnection(object):
             if self.request.ca_certs is not None:
                 ssl_options["ca_certs"] = self.request.ca_certs
             else:
-                ssl_options["ca_certs"] = _DEFAULT_CA_CERTS
+                ssl_options["ca_certs"] = _default_ca_certs()
             if self.request.client_key is not None:
                 ssl_options["keyfile"] = self.request.client_key
             if self.request.client_cert is not None:
