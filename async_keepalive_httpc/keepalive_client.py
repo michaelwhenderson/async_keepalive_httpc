@@ -423,7 +423,7 @@ class KeepAliveHTTPConnection(object):
         if (self.request.method == "POST" and
                 "Content-Type" not in self.request.headers):
             self.request.headers["Content-Type"] = "application/x-www-form-urlencoded"
-        if self.request.use_gzip:
+        if self.request.decompress_response:
             self.request.headers["Accept-Encoding"] = "gzip"
 
         if self.proxy_host:
@@ -546,7 +546,7 @@ class KeepAliveHTTPConnection(object):
             self._on_body(b"")
             return
 
-        if (self.request.use_gzip and
+        if (self.request.decompress_response and
                 self.headers.get("Content-Encoding") == "gzip"):
             self._decompressor = GzipDecompressor()
         if self.headers.get("Transfer-Encoding") == "chunked":
